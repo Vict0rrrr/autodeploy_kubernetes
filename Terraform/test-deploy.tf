@@ -51,13 +51,4 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
     bridge = "vmbr1"
     model  = "virtio,tag=40"
   }
-}
-
-terraform {
-  required_providers {
-    proxmox = {
-      source = "Telmate/proxmox"
-      version = "3.0.1rc4"
-    }
   }
-}
