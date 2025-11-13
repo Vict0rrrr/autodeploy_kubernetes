@@ -13,7 +13,7 @@ resource "proxmox_vm_qemu" "debian_test" {
   bootdisk    = "scsi0"
 
   disk {
-    slot     = 0
+    slot     = scsi0
     size     = "50G"
     type     = "scsi"
     storage  = "SSD-PVE-DATA"
