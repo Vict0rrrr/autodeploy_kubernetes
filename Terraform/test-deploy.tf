@@ -3,6 +3,7 @@ resource "proxmox_vm_qemu" "debian_test" {
   target_node = "PROXMOX-PVE1"
   clone       = "debian-12-template-cloud"
   full_clone  = true
+}
 
  # Configuration matérielle
   cores       = 1
