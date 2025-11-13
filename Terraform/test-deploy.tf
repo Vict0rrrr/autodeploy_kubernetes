@@ -15,7 +15,7 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
   cicustom   = "vendor=local:snippets/qemu-guest-agent.yml" # /var/lib/vz/snippets/qemu-guest-agent.yml
   ciupgrade  = true
   nameserver = "1.1.1.1 8.8.8.8"
-  ipconfig0  = "ip=dhcp
+  ipconfig0  = "ip=dhcp"
   skip_ipv6  = true
   ciuser     = "root"
   cipassword = "root"
@@ -51,4 +51,4 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
     bridge = "vmbr1"
     model  = "virtio,tag=40"
   }
-  }
+}
