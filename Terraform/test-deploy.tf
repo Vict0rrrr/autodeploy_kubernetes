@@ -49,6 +49,8 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
   network {
     id = 0
     bridge = "vmbr1"
-    model  = "virtio,tag=40"
+    model  = "virtio"
+    tag = 40
+    
   }
 }
