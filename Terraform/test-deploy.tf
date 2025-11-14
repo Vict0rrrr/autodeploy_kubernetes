@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "cloudinit-example" {
-  vmid        = 101
+  
   name        = "test-terraform0"
   target_node = "PROXMOX-PVE1"
   agent       = 1
@@ -17,8 +17,8 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
   nameserver = "1.1.1.1 8.8.8.8"
   ipconfig0  = "ip=dhcp"
   skip_ipv6  = true
-  ciuser     = "root"
-  cipassword = "root"
+  ciuser     = "user"
+  cipassword = "user"
 
   # Most cloud-init images require a serial device for their display
   serial {
