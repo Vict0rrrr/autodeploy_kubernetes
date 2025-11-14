@@ -2,7 +2,7 @@
 # Variables globales
 #############################################
 
-variable "proxmox_api_url" {"https://192.168.5.3:8006/ap12/json"}
+variable "proxmox_api_url" {"https://192.168.5.3:8006/api2/json"}
 variable "proxmox_api_token_id" {"root@pam"}
 variable "proxmox_api_token_secret" {""}
 
