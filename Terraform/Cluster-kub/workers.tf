@@ -2,6 +2,12 @@
 # Déploiement des WORKER NODES
 #############################################
 
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+
 resource "proxmox_vm_qemu" "workers" {
   for_each = toset(var.worker_ips)
 
@@ -30,6 +36,7 @@ resource "proxmox_vm_qemu" "workers" {
   cipassword = "user"
   nameserver = "1.1.1.1 8.8.8.8"
   ipconfig0 = "ip=${each.value}/24,gw=192.168.45.200"
+  ssh_keys = [tls_private_key.ssh_key.public_key_openssh]
 
   serial { id = 0 }
 
