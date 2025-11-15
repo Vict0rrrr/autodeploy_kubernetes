@@ -15,12 +15,12 @@ resource "proxmox_vm_qemu" "masters" {
   agent       = 1
 
   # CONFIGURATION SPÉCIFIQUE MASTER
-  cores       = 4
-  memory      = 4096
+  cores       = 2
+  memory      = 2048
   clone       = "debian13-cloudinit"
 
   # IP cloud-init
-  ipconfig0 = "ip=${each.value}/24,gw=192.168.45.1"
+  ipconfig0 = "ip=${each.value}/24,gw=192.168.45.254"
 
   serial { id = 0 }
 

@@ -19,7 +19,7 @@ resource "proxmox_vm_qemu" "workers" {
   memory      = 2048
   clone       = "debian13-cloudinit"
 
-  ipconfig0 = "ip=${each.value}/24,gw=192.168.45.1"
+  ipconfig0 = "ip=${each.value}/24,gw=192.168.45.254"
 
   serial { id = 0 }
 
@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "workers" {
       scsi0 {
         disk {
           storage = "SSD-PVE-DATA"
-          size    = "30G"
+          size    = "40G"
         }
       }
     }
