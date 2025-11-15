@@ -28,6 +28,7 @@ resource "proxmox_vm_qemu" "workers" {
   skip_ipv6  = true
   ciuser     = "user"
   cipassword = "user"
+  nameserver = "1.1.1.1 8.8.8.8"
   ipconfig0 = "ip=${each.value}/24,gw=192.168.45.254"
 
   serial { id = 0 }
@@ -41,7 +42,7 @@ resource "proxmox_vm_qemu" "workers" {
         }
       }
     }
-    
+
     ide {
       # Some images require a cloud-init disk on the IDE controller, others on the SCSI or SATA controller
       ide1 {
