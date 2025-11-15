@@ -18,8 +18,16 @@ resource "proxmox_vm_qemu" "masters" {
   cores       = 2
   memory      = 2048
   clone       = "debian13-cloudinit"
+  scsihw      = "virtio-scsi-single"
+  vm_state    = "running"
+  automatic_reboot = true
 
   # IP cloud-init
+  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml" # /var/lib/vz/snippets/qemu-guest-agent.yml
+  ciupgrade  = true
+  skip_ipv6  = true
+  ciuser     = "user"
+  cipassword = "user"
   ipconfig0 = "ip=${each.value}/24,gw=192.168.45.254"
 
   serial { id = 0 }
@@ -30,6 +38,15 @@ resource "proxmox_vm_qemu" "masters" {
         disk {
           storage = "SSD-PVE-DATA"
           size    = "40G"
+        }
+      }
+    }
+
+    ide {
+      # Some images require a cloud-init disk on the IDE controller, others on the SCSI or SATA controller
+      ide1 {
+        cloudinit {
+          storage = "SSD-PVE-DATA"
         }
       }
     }
