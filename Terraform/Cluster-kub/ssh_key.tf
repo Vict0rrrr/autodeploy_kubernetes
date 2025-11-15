@@ -1,4 +1,4 @@
-resource "tls_private_key" "ssh_key" {
+resource "tls_private_key" "sshkey" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
