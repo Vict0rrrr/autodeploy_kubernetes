@@ -2,12 +2,6 @@
 # Déploiement des WORKER NODES
 #############################################
 
-resource "tls_private_key" "ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-
 resource "proxmox_vm_qemu" "workers" {
   for_each = toset(var.worker_ips)
 

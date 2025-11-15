@@ -2,11 +2,6 @@
 # Déploiement des MASTER NODES
 #############################################
 
-resource "tls_private_key" "ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
 resource "proxmox_vm_qemu" "masters" {
   for_each = toset(var.master_ips)
 
