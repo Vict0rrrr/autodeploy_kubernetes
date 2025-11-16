@@ -15,7 +15,7 @@ locals {
     ip => idx
   }
 
-  public_key = file("~/.ssh/id_ed25519.pub")
+  public_key = file("~/.ssh/yes.pub")
 
 
 }
