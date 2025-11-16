@@ -30,6 +30,7 @@ resource "proxmox_vm_qemu" "workers" {
   cipassword = "user"
   nameserver = "1.1.1.1 8.8.8.8"
   ipconfig0 = "ip=${each.value}/24,gw=192.168.45.200"
+  sshkeys = local.public_key
 
   serial { id = 0 }
 
