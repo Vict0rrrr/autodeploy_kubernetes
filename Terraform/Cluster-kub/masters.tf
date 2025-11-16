@@ -30,7 +30,6 @@ resource "proxmox_vm_qemu" "masters" {
   cipassword = "user"
   nameserver = "1.1.1.1 8.8.8.8"
   ipconfig0 = "ip=${each.value}/24,gw=192.168.45.200"
-  sshkeys = [tls_private_key.ssh_key.public_key_openssh]
 
   serial { id = 0 }
 
