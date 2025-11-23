@@ -41,14 +41,15 @@ resource "proxmox_vm_qemu" "workers" {
           storage = "SSD-PVE-DATA"
           size    = "40G"
         }
-      scsi1 {
+      
+    }
+    scsi1 {
         disk {
           storage = "SSD-PVE-DATA"
           size    = "150G"
-        }  
-      }
+        }   
     }
-
+  }
     ide {
       # Some images require a cloud-init disk on the IDE controller, others on the SCSI or SATA controller
       ide1 {
