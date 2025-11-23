@@ -16,7 +16,7 @@ resource "proxmox_vm_qemu" "workers" {
 
   # CONFIGURATION SPÉCIFIQUE WORKER
   cores       = 2
-  memory      = 2048
+  memory      = 4096
   clone       = "debian13-cloudinit"
   scsihw      = "virtio-scsi-single"
   vm_state    = "running"
