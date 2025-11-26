@@ -15,7 +15,7 @@ resource "proxmox_vm_qemu" "masters" {
   agent       = 1
 
   # CONFIGURATION SPÉCIFIQUE MASTER
-  cores       = 2
+  cores       = 4
   memory      = 4096
   clone       = "debian13-cloudinit"
   scsihw      = "virtio-scsi-single"
