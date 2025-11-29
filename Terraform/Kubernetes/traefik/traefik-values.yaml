@@ -11,13 +11,22 @@ env:
         name: cloudflare-dns
         key: CF_DNS_API_TOKEN
 
+entryPoints:
+  web:
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
 ports:
   web:
-    redirectTo: websecure
-
+    exposedPort: 80
   websecure:
     tls:
       enabled: true
+    exposedPort: 443
+
 
 ingressRoute:
   dashboard:
