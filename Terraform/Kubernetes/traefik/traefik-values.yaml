@@ -1,0 +1,30 @@
+additionalArguments:
+  - "--certificatesresolvers.cloudflare.acme.email=admin@tondomaine.com"
+  - "--certificatesresolvers.cloudflare.acme.storage=/acme.json"
+  - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+  - "--certificatesresolvers.cloudflare.acme.dnschallenge.delayBeforeCheck=0"
+
+env:
+  - name: CF_DNS_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-dns
+        key: CF_DNS_API_TOKEN
+
+ports:
+  web:
+    redirectTo: websecure
+
+  websecure:
+    tls:
+      enabled: true
+
+ingressRoute:
+  dashboard:
+    enabled: true
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      dnsChallenge:
+        provider: cloudflare
