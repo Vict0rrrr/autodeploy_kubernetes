@@ -49,3 +49,7 @@ dashboard:
   enabled: true
   ingressRoute:
     dashboard: true
+
+podSecurityContext:
+  fsGroup: 65532
+  runAsUser: 65532
