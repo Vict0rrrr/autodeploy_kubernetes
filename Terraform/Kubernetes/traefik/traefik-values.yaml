@@ -1,3 +1,8 @@
+podSecurityContext:
+  runAsUser: 0       # root
+  fsGroup: 0         # permet à Traefik de créer des fichiers sur le PVC
+
+
 replicas: 1
 
 service:
@@ -49,7 +54,3 @@ dashboard:
   enabled: true
   ingressRoute:
     dashboard: true
-
-podSecurityContext:
-  fsGroup: 65532
-  runAsUser: 65532
