@@ -50,3 +50,15 @@ dashboard:
   enabled: true
   ingressRoute:
     dashboard: true
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: traefik-acme-pv
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/traefik/acme.json
