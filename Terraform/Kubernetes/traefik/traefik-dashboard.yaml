@@ -1,3 +1,4 @@
+# traefik-dashboard-ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -10,10 +11,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - traefik.tondomaine.com
+        - devver-traefik.vrhometech.fr
       secretName: traefik-dashboard-cert
   rules:
-    - host: traefik.tondomaine.com
+    - host: devver-traefik.vrhometech.fr
       http:
         paths:
           - path: /
