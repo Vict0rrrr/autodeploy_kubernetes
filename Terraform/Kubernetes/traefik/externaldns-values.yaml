@@ -6,7 +6,7 @@ cloudflare:
     key: CF_API_TOKEN
 
 domainFilters:
-  - "tondomaine.com"
+  - "vrhometech.fr"
 
 policy: sync
 
