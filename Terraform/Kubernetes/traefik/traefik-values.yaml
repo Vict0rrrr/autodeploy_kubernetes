@@ -33,7 +33,7 @@ persistence:
   path: /data
   size: 1Mi
   accessMode: ReadWriteOnce
-  storageClass: "longhorn"
+  storageClass: longhorn
 
 additionalArguments:
   - "--log.level=INFO"
