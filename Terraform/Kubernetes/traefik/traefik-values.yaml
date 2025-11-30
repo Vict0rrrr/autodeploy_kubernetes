@@ -28,6 +28,12 @@ certificatesResolvers:
         provider: cloudflare
         delayBeforeCheck: 0
 
+persistence:
+  enabled: true
+  path: /data
+  size: 1Mi
+  accessMode: ReadWriteOnce
+  storageClass: longhorn
 
 additionalArguments:
   - "--log.level=INFO"
