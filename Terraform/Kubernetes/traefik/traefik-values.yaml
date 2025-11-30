@@ -35,7 +35,7 @@ persistence:
   path: /acme.json
   size: 1Mi
   accessMode: ReadWriteOnce
-  storageClass: ""
+  storageClass: "longhorn"
 
 additionalArguments:
   - "--log.level=INFO"
