@@ -36,7 +36,7 @@ persistence:
   size: 1Mi
   accessMode: ReadWriteOnce
   storageClass: ""
-  
+
 additionalArguments:
   - "--log.level=INFO"
 
@@ -53,7 +53,14 @@ dashboard:
     dashboard: true
 
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: traefik-acme-pv
-
+  name: traefik-acme
+  namespace: traefik
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Mi
