@@ -30,6 +30,12 @@ certificatesResolvers:
         delayBeforeCheck: 0
         resolvers: []
 
+persistence:
+  enabled: true
+  path: /acme.json
+  size: 1Mi
+  accessMode: ReadWriteOnce
+
 additionalArguments:
   - "--log.level=INFO"
 
