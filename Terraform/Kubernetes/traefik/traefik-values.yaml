@@ -1,39 +1,46 @@
+# traefik-values.yaml
+replicas: 1
+
+service:
+  type: LoadBalancer
+  loadBalancerIP: "192.168.45.99"  # IP MetalLB
+  ports:
+    web:
+      port: 80
+    websecure:
+      port: 443
+
+providers:
+  kubernetesCRD: {}
+  kubernetesIngress: {}
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: "admin@vrhometech.fr" # ton email pour Let’s Encrypt
+      storage: /acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
+        resolvers: []
+
 additionalArguments:
-  - "--certificatesresolvers.cloudflare.acme.email=admin@tondomaine.com"
-  - "--certificatesresolvers.cloudflare.acme.storage=/acme.json"
-  - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
-  - "--certificatesresolvers.cloudflare.acme.dnschallenge.delayBeforeCheck=0"
+  - "--log.level=INFO"
 
 env:
   - name: CF_DNS_API_TOKEN
     valueFrom:
       secretKeyRef:
-        name: cloudflare-dns
-        key: CF_DNS_API_TOKEN
+        name: cloudflare-api-token-secret
+        key: CF_API_TOKEN
 
-entryPoints:
-  web:
-    http:
-      redirections:
-        entryPoint:
-          to: websecure
-          scheme: https
-
-ports:
-  web:
-    exposedPort: 80
-  websecure:
-    tls:
-      enabled: true
-    exposedPort: 443
-
-
-ingressRoute:
-  dashboard:
-    enabled: true
-
-certificatesResolvers:
-  cloudflare:
-    acme:
-      dnsChallenge:
-        provider: cloudflare
+dashboard:
+  enabled: true
+  ingressRoute:
+    dashboard: true
