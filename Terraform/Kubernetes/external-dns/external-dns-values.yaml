@@ -1,0 +1,29 @@
+provider: cloudflare
+
+cloudflare:
+  apiToken: "${CF_DNS_API_TOKEN}"
+
+sources:
+  - ingress
+  - crd
+  - service
+
+domainFilters:
+  - "vrhometech.fr"   # ton domaine
+
+policy: sync
+registry: txt
+interval: 1m
+
+txtOwnerId: "k8s-traefik"
+
+# On crée le CNAME uniquement si l'Ingress a cette annotation
+annotationFilter: "external-dns.alpha.kubernetes.io/target"
+
+# Référence le secret déjà présent
+env:
+  - name: CF_DNS_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-dns
+        key: CF_DNS_API_TOKEN
