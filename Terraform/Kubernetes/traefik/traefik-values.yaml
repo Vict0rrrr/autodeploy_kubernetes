@@ -27,3 +27,6 @@ ports:
   websecure:
     tls:
       enabled: true
+
+podSecurityContext:
+  fsGroup: 65532
