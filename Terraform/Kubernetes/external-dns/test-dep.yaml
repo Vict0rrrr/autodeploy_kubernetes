@@ -1,10 +1,11 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-demo
   namespace: default
-labels:
-  app: nginx-demo
+  labels:
+    app: nginx-demo
 spec:
   replicas: 1
   selector:
@@ -33,7 +34,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -41,17 +41,10 @@ metadata:
   name: nginx-demo-ingress
   namespace: default
   annotations:
-    #kubernetes.io/ingress.class: traefik
     external-dns.alpha.kubernetes.io/target: 192.168.20.2
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
-  apiVersion: networking.k8s.io/v1
-  kind: Ingress
-  metadata:
-    name: traefik
-    labels:
-      app.kubernetes.io/name: traefik
-  
+  ingressClassName: traefik
   rules:
   - host: test-nginx-devver.vrhometech.fr
     http:
