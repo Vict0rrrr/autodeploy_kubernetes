@@ -1,56 +1,29 @@
-podSecurityContext:
-  runAsUser: 0       # root
-  fsGroup: 0         # permet à Traefik de créer des fichiers sur le PVC
-
-
-replicas: 1
-
-service:
-  type: LoadBalancer
-  loadBalancerIP: "192.168.45.99"
-  ports:
-    web:
-      port: 80
-    websecure:
-      port: 443
-
-providers:
-  kubernetesCRD: {}
-  kubernetesIngress: {}
-
-entryPoints:
-  web:
-    address: ":80"
-  websecure:
-    address: ":443"
-
-certificatesResolvers:
-  cloudflare:
-    acme:
-      email: "admin@vrhometech.fr"
-      storage: /data/acme.json
-      dnsChallenge:
-        provider: cloudflare
-        delayBeforeCheck: 0
-
-persistence:
-  enabled: true
-  path: /data
-  size: 1Mi
-  accessMode: ReadWriteOnce
-  storageClass: longhorn
-
 additionalArguments:
-  - "--log.level=INFO"
+  - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+  - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+  - "--certificatesresolvers.cloudflare.acme.email=victorrouviere3@gmail.com"
+  - "--certificatesresolvers.cloudflare.acme.storage=/data/acme.json"
+  - "--entrypoints.websecure.http.tls.certresolver=cloudflare"
 
 env:
   - name: CF_DNS_API_TOKEN
     valueFrom:
       secretKeyRef:
-        name: cloudflare-api-token-secret
-        key: CF_API_TOKEN
+        name: cloudflare-dns
+        key: CF_DNS_API_TOKEN
 
-dashboard:
+persistence:
   enabled: true
-  ingressRoute:
-    dashboard: true
+  name: data
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  path: /data
+  annotations: {}
+  storageClass: "longhorn"
+
+ports:
+  web:
+    redirected: true
+  websecure:
+    tls:
+      enabled: true
