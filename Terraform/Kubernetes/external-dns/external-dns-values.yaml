@@ -6,7 +6,6 @@ providers:
 
 sources:
   - ingress
-  - crd
   - service
 
 domainFilters:
