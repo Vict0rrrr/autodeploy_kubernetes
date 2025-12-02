@@ -41,10 +41,17 @@ metadata:
   name: nginx-demo-ingress
   namespace: default
   annotations:
-    kubernetes.io/ingress.class: traefik
+    #kubernetes.io/ingress.class: traefik
     external-dns.alpha.kubernetes.io/target: 192.168.20.2
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: traefik
+    labels:
+      app.kubernetes.io/name: traefik
+  
   rules:
   - host: test-nginx-devver.vrhometech.fr
     http:
