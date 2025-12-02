@@ -1,8 +1,11 @@
-providers:
-  - name: cloudflare
-    cloudflare:
-      apiToken: "${CF_DNS_API_TOKEN}"
-      proxied: false
+provider:
+  name: cloudflare
+env:
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-api-key
+        key: apiKey
 
 sources:
   - ingress
@@ -18,9 +21,3 @@ txtOwnerId: "k8s-traefik"
 
 annotationFilter: "external-dns.alpha.kubernetes.io/target"
 
-env:
-  - name: CF_DNS_API_TOKEN
-    valueFrom:
-      secretKeyRef:
-        name: cloudflare-dns
-        key: CF_DNS_API_TOKEN
