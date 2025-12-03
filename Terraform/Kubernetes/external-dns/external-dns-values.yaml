@@ -1,7 +1,6 @@
-provider:
-  name: cloudflare
+provider: cloudflare
 
-env:
+extraEnv:
   - name: CF_API_TOKEN
     valueFrom:
       secretKeyRef:
@@ -22,5 +21,4 @@ policy: sync
 registry: txt
 txtOwnerId: "k8s-traefik"
 interval: 1m
-
-annotationFilter: "external-dns.alpha.kubernetes.io/target"
+logLevel: info
