@@ -1,5 +1,15 @@
-provider: cloudflare
+# --------------------------------------------------------
+# PROVIDER CLOUDLFARE
+# --------------------------------------------------------
+provider:
+  name: cloudflare
 
+cloudflare:
+  proxied: false
+
+# --------------------------------------------------------
+# CLOUDLFARE API TOKEN DEPUIS SECRET
+# --------------------------------------------------------
 extraEnv:
   - name: CF_API_TOKEN
     valueFrom:
@@ -7,18 +17,55 @@ extraEnv:
         name: cloudflare-dns
         key: CF_API_TOKEN
 
-cloudflare:
-  proxied: false
-
+# --------------------------------------------------------
+# SOURCES DE SYNCHRONISATION
+# --------------------------------------------------------
 sources:
   - ingress
   - service
+  - crd   # conseillé pour les annotations avancées
 
+# --------------------------------------------------------
+# FILTRAGE DES DOMAINES
+# --------------------------------------------------------
 domainFilters:
   - "vrhometech.fr"
 
+# --------------------------------------------------------
+# MODE DE SYNCHRO
+# --------------------------------------------------------
 policy: sync
 registry: txt
 txtOwnerId: "k8s-traefik"
-interval: 1m
-logLevel: info
+interval: "1m"
+
+# --------------------------------------------------------
+# ANNOTATIONS (pour ingresses / services)
+# --------------------------------------------------------
+annotationFilter: "external-dns.alpha.kubernetes.io/target"
+
+# Exemple d'annotations prises en charge :
+# external-dns.alpha.kubernetes.io/hostname: "app.vrhometech.fr"
+# external-dns.alpha.kubernetes.io/ttl: "300"
+# external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+
+# --------------------------------------------------------
+# SECURITY / RBAC
+# --------------------------------------------------------
+rbac:
+  create: true
+
+serviceAccount:
+  create: true
+  name: "external-dns"
+
+# --------------------------------------------------------
+# LEADER ELECTION (important en cluster HA)
+# --------------------------------------------------------
+leaderElection:
+  enabled: true
+
+# --------------------------------------------------------
+# LOGS VERBOSE
+# --------------------------------------------------------
+logLevel: debug
