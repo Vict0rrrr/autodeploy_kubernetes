@@ -10,7 +10,7 @@ extraEnv:
     valueFrom:
       secretKeyRef:
         name: cloudflare-dns
-        key: CF_DNS_API_TOKEN   # <-- clé existante utilisée par Traefik ACME
+        key: CF_DNS_API_TOKEN  # <-- clé Traefik ACME
 
 sources:
   - ingress
@@ -25,15 +25,16 @@ registry: txt
 txtOwnerId: "k8s-traefik"
 interval: "1m"
 
+annotationFilter: "external-dns.alpha.kubernetes.io/target"
+
 rbac:
   create: true
 
 serviceAccount:
   create: true
-  name: "external-dns"
+  name: external-dns
 
 leaderElection:
   enabled: true
 
 logLevel: debug
-annotationFilter: "external-dns.alpha.kubernetes.io/target"
