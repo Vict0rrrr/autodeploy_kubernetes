@@ -3,20 +3,12 @@
 # ----------------------------------------------------------------
 provider:
   name: cloudflare
-
-cloudflare:
-  apiToken: true      # obligatoire pour utiliser CF_API_TOKEN
-  proxied: false
-
-# ----------------------------------------------------------------
-# TOKEN CLOUDLFARE DEPUIS SECRET DÉDIÉ
-# ----------------------------------------------------------------
-extraEnv:
+env:
   - name: CF_API_TOKEN
     valueFrom:
       secretKeyRef:
-        name: cloudflare-externaldns   # secret dédié pour ExternalDNS
-        key: CF_API_TOKEN
+        name: cloudflare-api-key
+        key: apiKey
 
 # ----------------------------------------------------------------
 # SOURCES DE SYNCHRONISATION
