@@ -22,5 +22,5 @@ env:
   - name: CF_DNS_API_TOKEN
     valueFrom:
       secretKeyRef:
-        name: cloudflare-dns
+        name: cloudflare-api-token
         key: CF_DNS_API_TOKEN
