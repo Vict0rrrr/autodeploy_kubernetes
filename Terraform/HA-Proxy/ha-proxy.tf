@@ -11,6 +11,7 @@ resource "proxmox_vm_qemu" "ha-proxy" {
   memory  = 2048
   automatic_reboot = true
   agent       = 1
+  scsihw      = "virtio-scsi-single"
 
   # --- Cloud-init NETWORK ---
   ipconfig0 = "ip=192.168.20.5/24,gw=192.168.20.200"
