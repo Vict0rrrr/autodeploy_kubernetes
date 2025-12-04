@@ -17,6 +17,7 @@ resource "proxmox_vm_qemu" "debian_vm" {
 
   # --- Network interface ---
   network {
+    id     = 0
     model  = "virtio"
     bridge = "vmbr1"
     tag = 20
