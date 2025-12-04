@@ -15,7 +15,10 @@ resource "proxmox_vm_qemu" "workers" {
   agent       = 1
 
   # CONFIGURATION SPÉCIFIQUE WORKER
-  cores       = 4
+  cpu {
+  cores = 4
+  sockets = 1
+}
   memory      = 4096
   clone       = "debian13-cloudinit"
   scsihw      = "virtio-scsi-single"

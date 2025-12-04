@@ -1,7 +1,7 @@
 resource "proxmox_vm_qemu" "ha-proxy" {
   name        = "HA-PROXY"
   target_node = var.target_node
-  clone       = "debian13-cloud-init"
+  clone       = "debian13-cloudinit"
 
   vmid    = 2005
   cpu {
