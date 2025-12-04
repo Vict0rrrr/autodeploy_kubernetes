@@ -4,8 +4,10 @@ resource "proxmox_vm_qemu" "ha-proxy" {
   clone       = "debian13-cloud-init"
 
   vmid    = 2005
-  cores   = 2
+  cpu {
+  cores = 2
   sockets = 1
+}
   memory  = 2048
 
   # --- Cloud-init NETWORK ---
