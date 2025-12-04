@@ -1,4 +1,4 @@
-resource "proxmox_vm_qemu" "debian_vm" {
+resource "proxmox_vm_qemu" "ha-proxy" {
   name        = "HA-PROXY"
   target_node = var.target_node
   clone       = "debian13-cloud-init"
