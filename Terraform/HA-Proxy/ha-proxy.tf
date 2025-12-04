@@ -9,6 +9,8 @@ resource "proxmox_vm_qemu" "ha-proxy" {
   sockets = 1
 }
   memory  = 2048
+  automatic_reboot = true
+  agent       = 1
 
   # --- Cloud-init NETWORK ---
   ipconfig0 = "ip=192.168.20.5/24,gw=192.168.20.200"
@@ -31,6 +33,9 @@ resource "proxmox_vm_qemu" "ha-proxy" {
   nameserver = "1.1.1.1 8.8.8.8"
   sshkeys = local.public_key
 
+
+
+  serial { id = 0 }
   ####################################################
   # DISKS (seul bloc autorisé)
   ####################################################
