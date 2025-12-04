@@ -3,7 +3,7 @@ resource "proxmox_vm_qemu" "ha-proxy" {
   target_node = var.target_node
   clone       = "debian13-cloud-init"
 
-  vmid    = 02005
+  vmid    = 2005
   cores   = 2
   sockets = 1
   memory  = 2048
@@ -20,36 +20,32 @@ resource "proxmox_vm_qemu" "ha-proxy" {
     id     = 0
     model  = "virtio"
     bridge = "vmbr1"
-    tag = 20
+    tag    = 20
   }
 
- cicustom   = "vendor=local:snippets/qemu-guest-agent.yml" # /var/lib/vz/snippets/qemu-guest-agent.yml
- ciupgrade  = true
- skip_ipv6  = true
- nameserver = "1.1.1.1 8.8.8.8"
- sshkeys = local.public_key
-  # --- Root disk ---
-  disk {
-    slot    = 0
-    size    = "20G"
-    type    = "scsi"
-    storage = "SSD-PVE-DATA"
-  }
+  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml"
+  ciupgrade  = true
+  skip_ipv6  = true
+  nameserver = "1.1.1.1 8.8.8.8"
+  sshkeys = local.public_key
 
-  # --- Cloud-init disk (OBLIGATOIRE) ---
-  # Le storage doit supporter les images cloud-init (local-lvm ok)
+  ####################################################
+  # DISKS (seul bloc autorisé)
+  ####################################################
   disks {
+
+    # --- Disque principal (root) ---
     scsi {
       scsi0 {
         disk {
           storage = "SSD-PVE-DATA"
-          size    = "40G"
+          size    = "30G"
         }
       }
     }
 
+    # --- Cloud-init disk ---
     ide {
-      # Some images require a cloud-init disk on the IDE controller, others on the SCSI or SATA controller
       ide1 {
         cloudinit {
           storage = "SSD-PVE-DATA"
@@ -57,6 +53,7 @@ resource "proxmox_vm_qemu" "ha-proxy" {
       }
     }
   }
-  # Boot order pour éviter les erreurs
-  boot = "order=scsi0;ide2"
+
+  # Boot order
+  boot = "order=scsi0;ide1"
 }
