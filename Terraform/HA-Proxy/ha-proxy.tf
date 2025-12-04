@@ -38,11 +38,24 @@ resource "proxmox_vm_qemu" "debian_vm" {
 
   # --- Cloud-init disk (OBLIGATOIRE) ---
   # Le storage doit supporter les images cloud-init (local-lvm ok)
-  disk {
-    slot    = "ide2"
-    type    = "cloudinit"
-    storage = "SSD-PVE-DATA"
-  }
+  disks {
+    scsi {
+      scsi0 {
+        disk {
+          storage = "SSD-PVE-DATA"
+          size    = "40G"
+        }
+      }
+    }
+
+    ide {
+      # Some images require a cloud-init disk on the IDE controller, others on the SCSI or SATA controller
+      ide1 {
+        cloudinit {
+          storage = "SSD-PVE-DATA"
+        }
+      }
+    }
 
   # Boot order pour éviter les erreurs
   boot = "order=scsi0;ide2"
