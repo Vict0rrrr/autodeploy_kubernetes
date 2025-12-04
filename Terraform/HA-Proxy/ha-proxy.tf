@@ -56,7 +56,7 @@ resource "proxmox_vm_qemu" "debian_vm" {
         }
       }
     }
-
+  }
   # Boot order pour éviter les erreurs
   boot = "order=scsi0;ide2"
 }
