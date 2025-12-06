@@ -1,6 +1,5 @@
 frontend {{ vhost.name }}_frontend
-    bind *:443 ssl crt /etc/letsencrypt/live/{{ vhost.domain }}/fullchain.pem \
-               key /etc/letsencrypt/live/{{ vhost.domain }}/privkey.pem
+    bind *:443 ssl crt /etc/haproxy/certs/{{ vhost.domain }}.pem
     mode http
     option forwardfor
     timeout client 86400s
