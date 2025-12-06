@@ -2,8 +2,9 @@
 # Inclure les tâches d'installation
 - include_tasks: install.yml
 
+# Déployer la configuration vhosts HAProxy
+- import_tasks: configure.yml
+
 # Inclure les tâches ACME (certbot + Cloudflare)
 - include_tasks: acme.yml
 
-# Déployer la configuration vhosts HAProxy
-- import_tasks: configure.yml
