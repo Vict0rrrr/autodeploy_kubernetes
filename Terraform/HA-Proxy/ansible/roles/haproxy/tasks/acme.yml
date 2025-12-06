@@ -27,6 +27,7 @@
     --agree-tos
     -m {{ acme_email }}
   loop: "{{ haproxy_vhosts }}"
+  when: item.type == 'http'
   become: yes
 
 - name: Créer le dossier des certificats HAProxy
