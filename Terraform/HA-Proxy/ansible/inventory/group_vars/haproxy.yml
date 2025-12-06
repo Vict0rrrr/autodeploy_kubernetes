@@ -9,7 +9,7 @@ haproxy_vhosts:
 
 
   - name: devver
-    domain: "-devver.vrhometech.fr"
+    domain: devver.vrhometech.fr
     backend_ip: 192.168.45.99
     backend_port: 443
     type: tcp
