@@ -45,6 +45,7 @@
         /etc/letsencrypt/live/{{ item.domain }}/privkey.pem \
         > /etc/haproxy/certs/{{ item.domain }}.pem
   loop: "{{ haproxy_vhosts }}"
+  when: (item.type | default('http')) == 'http'
   notify: Reload HAProxy
 
 - name: Installer cron
