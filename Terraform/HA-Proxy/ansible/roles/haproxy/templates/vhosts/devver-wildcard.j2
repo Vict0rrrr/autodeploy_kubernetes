@@ -1,0 +1,13 @@
+# TCP passthrough for all *-devver.vrhometech.fr
+
+frontend {{ vhost.name }}_frontend
+    bind *:443
+    mode tcp
+
+    # Match SNI suffix -devver.vrhometech.fr
+    acl host_{{ vhost.name }} req.ssl_sni -m end -devver.vrhometech.fr
+    use_backend {{ vhost.name }}_backend if host_{{ vhost.name }}
+
+backend {{ vhost.name }}_backend
+    mode tcp
+    server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} send-proxy-v2
