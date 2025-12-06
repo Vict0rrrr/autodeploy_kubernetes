@@ -5,7 +5,7 @@ frontend {{ vhost.name }}_frontend
     mode tcp
 
     # Match SNI suffix -devver.vrhometech.fr
-    acl host_{{ vhost.name }} req.ssl_sni -m end {{ vhost.domain }}
+    acl host_{{ vhost.name }} req.ssl_sni -m reg .*{{ vhost.domain }}$
     use_backend {{ vhost.name }}_backend if host_{{ vhost.name }}
 
 backend {{ vhost.name }}_backend
