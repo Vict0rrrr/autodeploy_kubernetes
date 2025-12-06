@@ -1,3 +1,7 @@
 haproxy_conf_dir: "/etc/haproxy/conf.d"
 haproxy_cfg: "/etc/haproxy/haproxy.cfg"
 haproxy_vhosts: []
+
+
+acme_email: "victorrouviere3@gmail.com"
+cloudflare_api_token: "xxxxxxxxxxxxxxxxxxxx"

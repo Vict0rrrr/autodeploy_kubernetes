@@ -1,0 +1,6 @@
+---
+- hosts: haproxy
+  become: yes
+  roles:
+    - role: haproxy
+      tasks_from: acme.yml
