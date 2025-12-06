@@ -1,0 +1,12 @@
+---
+- name: Installer HAProxy
+  apt:
+    name: "{{ haproxy_package }}"
+    state: present
+    update_cache: yes
+
+- name: S'assurer que le service HAProxy est démarré et activé
+  service:
+    name: "{{ haproxy_service_name }}"
+    state: started
+    enabled: yes

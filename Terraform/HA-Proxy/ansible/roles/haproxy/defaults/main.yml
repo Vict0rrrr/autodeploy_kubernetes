@@ -1,0 +1,5 @@
+---
+# Variables globales pour HAProxy
+haproxy_package: haproxy
+haproxy_conf_dir: /etc/haproxy
+haproxy_service_name: haproxy
