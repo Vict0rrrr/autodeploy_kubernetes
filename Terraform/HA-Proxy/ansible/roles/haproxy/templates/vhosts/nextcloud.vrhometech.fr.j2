@@ -1,0 +1,20 @@
+frontend {{ vhost.name }}_frontend
+    bind *:443 ssl crt /etc/letsencrypt/live/{{ vhost.domain }}/fullchain.pem \
+               key /etc/letsencrypt/live/{{ vhost.domain }}/privkey.pem
+    mode http
+    option forwardfor
+    timeout client 86400s
+
+    # WebSocket support
+    acl is_websocket hdr(Upgrade) -i WebSocket
+    acl connection_upgrade hdr_beg(Connection) -i Upgrade
+    use_backend {{ vhost.name }}_ws_backend if is_websocket connection_upgrade
+    default_backend {{ vhost.name }}_backend
+
+backend {{ vhost.name }}_backend
+    mode http
+    server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} check
+
+backend {{ vhost.name }}_ws_backend
+    mode http
+    server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} check

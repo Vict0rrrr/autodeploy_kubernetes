@@ -1,0 +1,6 @@
+haproxy_vhosts:
+  - name: nextcloud
+    domain: nextcloud.vrhometech.fr
+    backend_ip: 192.168.20.3
+    backend_port: 11000
+    template: nextcloud.j2
