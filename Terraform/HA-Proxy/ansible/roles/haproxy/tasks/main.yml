@@ -1,3 +1,6 @@
 ---
 # Inclure les tâches d'installation
-- include_tasks: install.yml acme.yml
+- include_tasks: install.yml
+
+# Inclure les tâches ACME (certbot + Cloudflare)
+- include_tasks: acme.yml
