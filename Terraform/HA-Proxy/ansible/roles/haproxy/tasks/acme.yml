@@ -29,6 +29,15 @@
   loop: "{{ haproxy_vhosts }}"
   become: yes
 
+- name: Créer le dossier des certificats HAProxy
+  file:
+    path: /etc/haproxy/certs
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+
 - name: Fusionner certificate + key en PEM compatible HAProxy
   shell: |
     cat /etc/letsencrypt/live/{{ item.domain }}/fullchain.pem \
