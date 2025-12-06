@@ -12,3 +12,4 @@ haproxy_vhosts:
     backend_ip: 192.168.45.99
     backend_port: 443
     type: tcp
+    template: devver-wildcard.j2
