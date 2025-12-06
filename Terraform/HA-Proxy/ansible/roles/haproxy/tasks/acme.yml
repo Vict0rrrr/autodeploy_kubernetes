@@ -29,6 +29,14 @@
   loop: "{{ haproxy_vhosts }}"
   become: yes
 
+- name: Fusionner certificate + key en PEM compatible HAProxy
+  shell: |
+    cat /etc/letsencrypt/live/{{ item.domain }}/fullchain.pem \
+        /etc/letsencrypt/live/{{ item.domain }}/privkey.pem \
+        > /etc/haproxy/certs/{{ item.domain }}.pem
+  loop: "{{ haproxy_vhosts }}"
+  notify: Reload HAProxy
+
 - name: Installer cron
   apt:
     name: cron
