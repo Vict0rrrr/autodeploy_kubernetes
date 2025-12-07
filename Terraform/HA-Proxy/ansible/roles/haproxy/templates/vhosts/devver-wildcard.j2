@@ -1,15 +1,15 @@
-# TCP passthrough for all *-devver.vrhometech.fr
+# TCP passthrough pour tous les sous-domaines finissant par devver.vrhometech.fr
 
 frontend {{ vhost.name }}_frontend
     bind *:443
     mode tcp
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req_ssl_hello_type 1 }
 
-    # Match SNI suffix -devver.vrhometech.fr
-    acl host_{{ vhost.name }} req.ssl_sni -m sub {{ vhost.domain }}
-    use_backend {{ vhost.name }}_backend if host_{{ vhost.name }}
+    # Match SNI pour tous les sous-domaines finissant par devver.vrhometech.fr
+    use_backend {{ vhost.name }}_backend if { req_ssl_sni -i -m end {{ vhost.domain }} }
 
 backend {{ vhost.name }}_backend
     mode tcp
-    server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} send-proxy-v2
-
-
+    option ssl-hello-chk
+    server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} check
