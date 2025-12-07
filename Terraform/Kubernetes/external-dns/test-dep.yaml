@@ -46,7 +46,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: nginx123-devver.vrhometech.fr
+  - host: ptest-devver.vrhometech.fr
     http:
       paths:
       - path: /
@@ -58,4 +58,4 @@ spec:
               number: 80
   tls:
   - hosts:
-      - nginx123-devver.vrhometech.fr
+      - ptest-devver.vrhometech.fr
