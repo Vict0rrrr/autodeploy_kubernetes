@@ -27,4 +27,6 @@ defaults
 # Include all vhost configurations
 {% for vhost in haproxy_vhosts %}
 {% include "vhosts/" + vhost.template %}
+
 {% endfor %}
+

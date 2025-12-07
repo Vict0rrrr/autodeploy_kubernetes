@@ -17,3 +17,4 @@ backend {{ vhost.name }}_backend
 backend {{ vhost.name }}_ws_backend
     mode http
     server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} check
+
