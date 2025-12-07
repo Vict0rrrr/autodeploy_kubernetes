@@ -20,6 +20,9 @@ persistence:
   path: /data
   annotations: {}
   storageClass: "longhorn"
+  
+dashboard:
+  enabled: false
 
 ports:
   web:
