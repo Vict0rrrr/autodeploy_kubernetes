@@ -20,7 +20,7 @@ persistence:
   path: /data
   annotations: {}
   storageClass: "longhorn"
-  
+
 dashboard:
   enabled: false
 
@@ -38,13 +38,14 @@ entryPoints:
       trustedIPs:
         - "192.168.20.5/32"
 
+deployment:
+  initContainers:
+    - name: volume-permissions
+      image: busybox:latest
+      command: ["sh", "-c", "touch /data/acme.json; chmod -v 600 /data/acme.json"]
+      volumeMounts:
+      - mountPath: /data
+        name: data
 podSecurityContext:
   fsGroup: 65532
-
-initContainers:
-  - name: fix-acme-perms
-    image: busybox
-    command: ["sh", "-c", "chmod 600 /data/acme.json"]
-    volumeMounts:
-      - name: data
-        mountPath: /data
+  fsGroupChangePolicy: "OnRootMismatch"
