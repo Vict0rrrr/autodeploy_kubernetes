@@ -41,12 +41,12 @@ metadata:
   name: nginx-demo-ingress
   namespace: default
   annotations:
-    external-dns.alpha.kubernetes.io/target: reverse-proxy.vrhometech.fr
+    external-dns.alpha.kubernetes.io/target: 192.168.20.2
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   ingressClassName: traefik
   rules:
-  - host: nginx123-devver.vrhometech.fr
+  - host: test-nginx-devver.vrhometech.fr
     http:
       paths:
       - path: /
@@ -58,4 +58,4 @@ spec:
               number: 80
   tls:
   - hosts:
-      - nginx123-devver.vrhometech.fr
+      - test-nginx-devver.vrhometech.fr
