@@ -28,5 +28,12 @@ ports:
     tls:
       enabled: true
 
+entryPoints:
+  websecure:
+    address: ":443"
+    proxyProtocol:
+      trustedIPs:
+        - "192.168.20.5/32"
+
 podSecurityContext:
   fsGroup: 65532
