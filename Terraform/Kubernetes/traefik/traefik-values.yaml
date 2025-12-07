@@ -41,4 +41,12 @@ entryPoints:
 
 podSecurityContext:
   fsGroup: 65532
-  fsGroupChangePolicy: "OnRootMismatch"
+  fsGroupChangePolicy: "Always"
+
+initContainers:
+  - name: init-acme
+    image: busybox
+    command: ["sh", "-c", "touch /data/acme.json && chmod 600 /data/acme.json"]
+    volumeMounts:
+      - mountPath: /data
+        name: data
