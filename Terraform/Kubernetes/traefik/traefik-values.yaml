@@ -38,14 +38,7 @@ entryPoints:
       trustedIPs:
         - "192.168.20.5/32"
 
-deployment:
-  initContainers:
-    - name: volume-permissions
-      image: busybox:latest
-      command: ["sh", "-c", "touch /data/acme.json; chmod -v 600 /data/acme.json"]
-      volumeMounts:
-      - mountPath: /data
-        name: data
+
 podSecurityContext:
   fsGroup: 65532
   fsGroupChangePolicy: "OnRootMismatch"
